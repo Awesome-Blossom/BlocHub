@@ -38,7 +38,7 @@ body {
     text-decoration: none;
 }
 
-.links-container .navbar-link{
+.links-container .navbar-link {
     display: table-cell;
     position: relative;
     height: 100%;
@@ -50,17 +50,20 @@ body {
     letter-spacing: 0.05rem;
     font-weight: 700;
     text-transform: uppercase;
-    /*#3*/
     text-decoration: none;
     cursor: pointer;
 }
-.links-container .navbar-link:hover{
-    color: rgb(233,50,117);
+
+.links-container .navbar-link:hover {
+    color: rgb(233, 50, 117);
 }
-.navbar-link:active{
-    rgb(233,50,117);
+
+.navbar-link:active {
+    rgb(233, 50, 117);
     background-color: white;
 }
+
+
 /*Medium & small screen(640px)*/
 
 @media (min-width:640px) {
@@ -68,7 +71,7 @@ body {
         font-size: 112%;
     }
     .column {
-        float: right;
+        float: left;
         padding-left: 1rem;
         padding-right: 1rem;
     }
@@ -102,8 +105,12 @@ body {
 }
 
 .container {
-    margin: 0, auto;
+    margin: 0 auto;
     max-width: 64rem;
+}
+
+.container .narrow {
+    max-width: .25rem;
 }
 
 .clearfix::before, .clearfix::after {

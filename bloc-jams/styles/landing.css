@@ -20,7 +20,7 @@ body.landing {
     transform: translateY(-50%);
     width: 100%;
     text-align: center;
-    font-size: -size: 5.0rem;
+    font-size: 4rem;
     font-weight: 300;
     text-transform: uppercase;
     letter-spacing: 0.5rem;
@@ -38,7 +38,7 @@ body.landing {
 }
 
 .point .point-title {
-    font-size: 1.15rem;
+    font-size: 1.25rem;
 }
 
 .ion-music-note, .ion-radio-waves, .ion-iphone {
