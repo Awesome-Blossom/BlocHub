@@ -9,7 +9,7 @@ body.album{
     position: relative;
     left: 20%;
     margin-top: 1rem;
-    width:60%;
+    width: 60%;
 }
 .album-view-details{
     position: relative;
@@ -30,7 +30,7 @@ body.album{
 }
 .album-view-song-list{
     width: 90%;
-    margin: 1.5rem auto;
+    margin: 1rem auto;
     font-weight: 300;
     font-size: 0.75rem;
     border-collapse: collapse;
@@ -43,7 +43,7 @@ body.album{
     width: 5%;
 }
 .song-item-title{
-    width:85%;
+    width: 85%;
 }
 .song-item-duration{
     width: 5%;
