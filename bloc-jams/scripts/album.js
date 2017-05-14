@@ -133,19 +133,9 @@ var playButtonTemplate = '<a class="album-song-button"><i class="fa fa-caret-rig
 window.onload = function() {
     setCurrentAlbum(albumTesla);
 
-    // var albumSongItem0=(document.getElementsByClassName('album-view-song-item')[0]);
-    // console.log(albumSongItem0);  //this works.
-    // want to select just the 1st row.
-    // var albumSongItem0=document.getElementsByClassName('song-item-number')[0];
-    // console.log(albumSongItem0);
-    //another way of selecting the first number
-
-    //when you do window side by side, play pushes the words to the right.
-
     songListContainer.addEventListener('mouseover', function(event){
         if(event.target.parentElement.className == 'album-view-song-item'){
             event.target.parentElement.querySelector('.song-item-number').innerHTML = playButtonTemplate;
-            // event.target.parentElement.albumSongItem0.innerHTML = playButtonTemplate;
         }
     });
 
