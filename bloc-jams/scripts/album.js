@@ -128,10 +128,14 @@ i.addEventListener('click', function(event){
 
 var songListContainer=document.getElementsByClassName('album-view-song-list')[0];
 var songRows = document.getElementsByClassName('album-view-song-item');
-var playButtonTemplate = '<a class="album-song-button"><i class="fa fa-caret-right fa-2x"</i></a>';
+var playButtonTemplate = '<a class="album-song-button"><i class="fa fa-caret-right fa-2x"></i></a>';
+var pauseButtonTemplate ='<a class="song-pause-button"><i class="fa fa-pause" ></i></a>';
+var playButton=document.getElementsByTagName('i');
+var sin= document.getElementsByClassName('song-item-number');
 
 window.onload = function() {
     setCurrentAlbum(albumTesla);
+
 
     songListContainer.addEventListener('mouseover', function(event){
         if(event.target.parentElement.className == 'album-view-song-item'){
@@ -139,9 +143,36 @@ window.onload = function() {
         }
     });
 
+    // for (var i=0; i<sin.length; i++){
+    //     sin[i].addEventListener('click', function(event){
+    //             console.log(event.target);
+    //
+    //             if(this.innerHTML == playButtonTemplate){
+    //                 this.innerHTML = pauseButtonTemplate;
+    //             }
+    //
+    //     });
+    // }
+
+
     for (var i = 0; i < songRows.length; i++) {
         songRows[i].addEventListener('mouseleave', function (event) {
             this.children[0].innerHTML= this.children[0].getAttribute('data-song-number');
         });
+
+        songRows[i].addEventListener('click', function (event) {
+            if(this.children[0].innerHTML == playButtonTemplate){
+                this.children[0].innerHTML = pauseButtonTemplate;
+            }
+        });
     }
+
+    // playButton.addEventListener('click', function(event) {
+    //     // if(event.target.parentElement.className == 'album-view-song-item'){
+    //     //     event.target.parentElement.querySelector('.song-item-number').innerHTML = playButtonTemplate2;
+    //     // }
+    //     console.log(event);
+    //
+    // });
+
 };
