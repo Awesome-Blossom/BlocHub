@@ -6,10 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400,800,600,700,300">
     <link rel="stylesheet" type="text/css" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <link rel="stylesheet" href="    https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="styles/normalize.css">
     <link rel="stylesheet" type="text/css" href="styles/main.css">
     <link rel="stylesheet" type="text/css" href="styles/album.css">
+    <link rel="stylesheet" type="text/css" href="styles/player_bar.css">
+
 </head>
 
 <body class="album">
@@ -33,6 +35,26 @@
         </section>
         <table class="album-view-song-list"></table>
     </main>
+    <section class="player-bar">
+        <div class="container">
+            <div class="control-group main-controls">
+                <a class='previous'>
+                    <i class="fa fa-backward" aria-hidden="true"></i>
+                </a>
+                <a class='play-pause'>
+                    <i class="fa fa-play" aria-hidden="true"></i>
+                </a>
+                <a class='next'>
+                    <i class="fa fa-forward" aria-hidden="true"></i>
+                </a>
+            </div>
+            <div class="control-group currently-playing">
+                <h2 class="song-name">Song title</h2>
+                <h2 class="artist-song-mobile">Song title-Mobile</h2>
+                <h3 class="arist-name">Artist Name</h3>
+            </div>
+            <div class="control-group volume"></div>
+        </div>
     <script src="scripts/album.js"></script>
 </body>
 
