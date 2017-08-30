@@ -54,138 +54,88 @@ var albumMarconi = {
         }
     ]
 };
-var albumTesla = {
-    title: 'Wizard of the West',
-    artist: 'Nikola Tesla',
-    label: 'EM',
-    year: '1882',
-    albumArtUrl: 'assets/images/album_covers/23.png',
-    songs: [{
-            title: 'Inspiration in mind',
-            duration: '1:01'
-        },
-        {
-            title: 'Wireless Energy Transmission',
-            duration: '5:01'
-        },
-        {
-            title: 'Electromagnetism',
-            duration: '3:21'
-        },
-        {
-            title: 'Alternating Current',
-            duration: '3:14'
-        },
-        {
-            title: 'Three phase power',
-            duration: '3:14'
-        },
-        {
-            title: 'Tesla Coil',
-            duration: '2:15'
-        }
-    ]
-};
 
-var createSongRow = function(songNumber, songName, songLength) {
-    var template =
-        '<tr class="album-view-song-item">' +
-        '   <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>' +
-        '   <td class="song-item-title">' + songName + '</td>' +
-        '   <td class="song-item-duration">' + songLength + '</td>' +
-        '</tr>';
-
-    return template;
-};
-var setCurrentAlbum = function(album) {
-    var albumTitle = document.getElementsByClassName('album-view-title')[0];
-    var albumArtist = document.getElementsByClassName('album-view-artist')[0];
-    var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
-    var albumImage = document.getElementsByClassName('album-cover-art')[0];
-    var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
-
-    albumTitle.firstChild.nodeValue = album.title;
-    albumArtist.firstChild.nodeValue = album.artist;
-    albumReleaseInfo.firstChild.nodeValue = album.year + ' ' + album.label;
-    albumImage.setAttribute('src', album.albumArtUrl);
-
-    albumSongList.innerHTML = '';
-
-    for (var i = 0; i < album.songs.length; i++) {
-        albumSongList.innerHTML += createSongRow(i + 1, album.songs[i].title, album.songs[i].duration);
-    }
-};
-
-var i = document.getElementsByClassName('album-cover-art')[0];
-var a = [albumPicasso, albumMarconi, albumTesla],
-    counter = 0;
-i.addEventListener('click', function(event) {
-    setCurrentAlbum(a[counter]);
-    counter++;
-    if (counter >= a.length) {
-        counter = 0;
-    }
-});
-
-var songListContainer = document.getElementsByClassName('album-view-song-list')[0];
-var songRows = document.getElementsByClassName('album-view-song-item');
 var playButtonTemplate = '<a class="album-song-button"><i class="fa fa-caret-right fa-2x"></i></a>';
 var pauseButtonTemplate = '<a class="song-pause-button"><i class="fa fa-pause" ></i></a>';
-var sin = document.getElementsByClassName('song-item-number');
 var songPlaying = null;
 
+var createSongRow = function(songNumber, songName, songLength) {
+    var template = '<tr class="album-view-song-item">'
+    +'   <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>'
+    +'   <td class="song-item-title">' + songName + '</td>'
+    +'   <td class="song-item-duration">' + songLength + '</td>'
+    +'</tr>';
 
-window.onload = function() {
-    setCurrentAlbum(albumTesla);
+    var $row= $(template);
+
+    var clickHandler= function()
+    {
+        var sin_attr= $(this).attr('data-song-number');
+
+        if (songPlaying ===null) {
+            $(this).html(pauseButtonTemplate);
+            songPlaying = sin_attr;
+        }
+        else if (songPlaying === sin_attr){
+            $(this).html(playButtonTemplate);
+            songPlaying = null;
+        }
+        else if (songPlaying !== sin_attr){
+            var currentSongPlayingElement = $(document).find('[data-song-number="' + songPlaying + '"]');
+            currentSongPlayingElement.html(songPlaying);
+            $(this).html(pauseButtonTemplate);
+            songPlaying = sin_attr;
+        }
+
+    }
+
+    var onHover= function(event)
+    {
+        var sin= $(this).find('.song-item-number');
+        var sin_attr= sin.attr('data-song-number');
+
+        if(songPlaying !== sin_attr){
+            sin.html(playButtonTemplate);
+        }
+    };
+    var offHover= function(event)
+    {
+        var sin= $(this).find('.song-item-number');
+        var sin_attr= sin.attr('data-song-number');
+
+        if(songPlaying !== sin_attr){
+            sin.html(sin_attr);
+        }
+    };
+
+    $row.find('.song-item-number').click(clickHandler);
+    $row.hover(onHover, offHover);
+    return $row;
+};
 
 
-    // songListContainer.addEventListener('mouseover', function(event) {
-    //     var sin2=event.target.parentElement.querySelector('.song-item-number');
-    //     if (event.target.parentElement.className == 'album-view-song-item') {
-    //         sin2.innerHTML = playButtonTemplate;
-    //           if (songPlaying !== sin2.getAttribute('data-song-number')) {
-    //                 sin2.innerHTML = sin2.getAttribute('data-song-number');
-    //             }
-    //     }
-    // });
+var setCurrentAlbum = function(album) {
+    var $albumTitle = $('.album-view-title');
+    var $albumArtist = $('.album-view-artist');
+    var $albumReleaseInfo = $('.album-view-release-info');
+    var $albumImage = $('.album-cover-art');
+    var $albumSongList = $('.album-view-song-list');
 
-    // for (var i=0; i<sin.length; i++){
-    //     sin[i].addEventListener('click', function(event){
-    //             console.log(event.target);
-    //
-    //             if(this.innerHTML == playButtonTemplate){
-    //                 this.innerHTML = pauseButtonTemplate;
-    //             }
-    //     });
-    // }
+    $albumTitle.text(album.title);
+    $albumArtist.text(album.artist);
+    $albumReleaseInfo.text(album.year + ' ' + album.label);;
+    $albumImage.attr('src', album.albumArtUrl);
 
-    for (var i = 0; i < songRows.length; i++) {
-        songRows[i].addEventListener('click', function(event) {
-            if (songPlaying == null) {
-                this.children[0].innerHTML = pauseButtonTemplate;
-                songPlaying = this.children[0].getAttribute('data-song-number');
-            } else if (songPlaying == this.children[0].getAttribute('data-song-number')) {
-                this.children[0].innerHTML = playButtonTemplate;
-                songPlaying = null;
-            } else if (songPlaying !== this.children[0].getAttribute('data-song-number')) {
-                var songPlayingElement = document.querySelector('[data-song-number="' + songPlaying + '"]')
-                songPlayingElement.innerHTML = songPlaying;
-                this.children[0].innerHTML = pauseButtonTemplate;
-                songPlaying = this.children[0].getAttribute('data-song-number');
-            }
-        });
+    $albumSongList.empty();
 
-        songRows[i].addEventListener('mouseleave', function(event) {
-            if (songPlaying !== this.children[0].getAttribute('data-song-number')) {
-                this.children[0].innerHTML = this.children[0].getAttribute('data-song-number');
-            }
-
-        });
-
-        songRows[i].addEventListener('mouseover', function(event) {
-            if (songPlaying !== this.children[0].getAttribute('data-song-number')) {
-                this.children[0].innerHTML = playButtonTemplate;
-            }
-        });
+    for (var i = 0; i < album.songs.length; i++) {
+        var $newRow = createSongRow(i + 1, album.songs[i].title, album.songs[i].duration);
+        $albumSongList.append($newRow);
     }
 };
+
+
+$(document).ready(function()
+{
+    setCurrentAlbum(albumPicasso);
+});

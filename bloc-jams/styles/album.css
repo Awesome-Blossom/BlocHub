@@ -31,9 +31,9 @@ body.album{
 }
 .album-view-song-list{
     width: 90%;
-    margin: 1rem auto;
+    margin: 1.5rem auto;
     font-weight: 300;
-    font-size: 0.75rem;
+    font-size: 0.75em;
     border-collapse: collapse;
 }
 .album-view-song-item{
@@ -41,9 +41,9 @@ body.album{
     border-bottom: 1px solid rgba(255,255,255,.5);
 }
 .song-item-number{
-    text-align: center;
+    /*text-align: center;*/
     width: 5%;
-    min-width:40px;
+    min-width:30px;
 }
 .song-item-title{
     width: 85%;
@@ -68,7 +68,7 @@ body.album{
     background-color: rgb(210, 40, 123);
 }
 .album-song-button i{
-    /*line-height: 28px;*/
+    line-height: 28px;
 }
 .song-pause-button:hover{
     cursor: pointer;
@@ -87,6 +87,6 @@ body.album{
         position:relative;
         top:1rem;
         width:80%;
-        margin:1px;
+        margin:auto;
     }
 }
