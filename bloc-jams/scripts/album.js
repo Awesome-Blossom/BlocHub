@@ -1,9 +1,4 @@
 
-var songRows = document.getElementsByClassName('album-view-song-item');
-var playButtonTemplate = '<a class="album-song-button"><i class="fa fa-caret-right fa-2x"></i></a>';
-var pauseButtonTemplate = '<a class="song-pause-button"><i class="fa fa-pause" ></i></a>';
-var songPlayingNumber = null;
-var currentAlbum=null;
 
 var createSongRow = function(songNumber, songName, songLength) {
     var template = '<tr class="album-view-song-item">' 
@@ -34,38 +29,47 @@ var createSongRow = function(songNumber, songName, songLength) {
     };
     var clickHandler= function()
     {
-        // var sin=$(this).find('.song-item-number');
-        console.log($(this));
         var sin_attr= $(this).attr('data-song-number');
-        console.log(sin_attr+' a')
-        console.log(songPlayingNumber+ ' song#')
-   
+
         if (songPlayingNumber == null) {
             //if user clicks play button on a new song.
             $(this).html(pauseButtonTemplate);
             songPlayingNumber = sin_attr;
+            currentAlbumSong = currentAlbum.songs[sin_attr-1];
+            updatePlayerBarSong();
         }
         else if (songPlayingNumber == sin_attr){
             //if user click pause button on the same song.
             $(this).html(playButtonTemplate);
-            songPlayingNumber=null;
+            songPlayingNumber = null;
+            currentAlbumSong = null;
+            $('.main-controls .play-pause').html(playerBarPlayButton);
         }
-        else if (songPlayingNumber !== null){
-            // if user clicks play buttton on a different song while current song is playing.
-            var currentsongPlayingNumberElement = $('.song-item-number[data-song-number="' + songPlayingNumber + '"]');
-            currentsongPlayingNumberElement.html(songPlayingNumber);
+        else if (songPlayingNumber !== sin_attr){
+            // if user clicks play buttton on a different song while a song is already playing.
+            var currentSongPlayingNumberElement = $('.song-item-number[data-song-number="' + songPlayingNumber + '"]');
+            currentSongPlayingNumberElement.html(songPlayingNumber);
             $(this).html(pauseButtonTemplate);
-            songPlayingNumber=$(this).attr('data-song-number');
-        }             
+            songPlayingNumber = sin_attr;
+            currentAlbumSong = currentAlbum.songs[sin_attr-1]; //currentAlbumSong gets the switched song
+            updatePlayerBarSong();
 
+        }             
     };
- 
+
     $row.find('.song-item-number').click(clickHandler);
     $row.hover(onHover, offHover);
     return $row;
 };
 
+var updatePlayerBarSong= function(event){
+    $('.currently-playing .song-name').text(currentAlbumSong.title);
+    $('.currently-playing .artist-name').text(currentAlbum.artist);
+    $('.currently-playing .artist-song-mobile').text(currentAlbumSong.title +' - ' + currentAlbum.artist);
+    $('.main-controls .play-pause').html(playerBarPauseButton);
+};
 
+//setting Album info to html
 var setCurrentAlbum = function(album) {
     currentAlbum=album;
     var $albumTitle = $('.album-view-title');
@@ -87,8 +91,10 @@ var setCurrentAlbum = function(album) {
     }
 };
 
+//switch album cover & song info when clicked on album cover art
+
 var i = document.getElementsByClassName('album-cover-art')[0];
-var a = [albumPicasso, albumMarconi, albumTesla],
+var a = [albumPicasso, albumMarconi],
     counter = 0;
 i.addEventListener('click', function(event) {
     setCurrentAlbum(a[counter]);
@@ -99,7 +105,15 @@ i.addEventListener('click', function(event) {
 });
 
 
+var playButtonTemplate = '<a class="album-song-button"><i class="fa fa-caret-right fa-2x"></i></a>';
+var pauseButtonTemplate = '<a class="song-pause-button"><i class="fa fa-pause" ></i></a>';
+var playerBarPlayButton = '<i class="fa fa-play"></i>'
+var playerBarPauseButton= '<i class="fa fa-pause"></i>'
+var songPlayingNumber = null;
+var currentAlbum=null;
+var currentAlbumSong=null;
+
 $(document).ready(function()
 {
-    setCurrentAlbum(currentAlbum);
+    setCurrentAlbum(albumPicasso);
 }); 
