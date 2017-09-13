@@ -6,7 +6,7 @@ var createSongRow = function(songNumber, songName, songLength) {
     +'</tr>';
 
     var $row= $(template);
-
+//did not change songnumber to parseInt, instead, just did not do strict inequality
     var onHover= function(event)
     {
         var sin= $(this).find('.song-item-number');
@@ -123,8 +123,8 @@ var prevSong= function(){
 
     updatePlayerBarSong();
 
-    var $prevSongNumberCell = $('.song-item-number[data-song-number="'+ currentSongPlayingNumber +'"]');
-    var $lastSongNumberCell = $('.song-item-number[data-song-number="'+ lastSongNumber +'"]');
+    var $prevSongNumberCell = $('.song-item-number[data-song-number="' + currentSongPlayingNumber + '"]');
+    var $lastSongNumberCell = $('.song-item-number[data-song-number="' + lastSongNumber + '"]');
 
     $prevSongNumberCell.html(pauseButtonTemplate);
     $lastSongNumberCell.html(lastSongNumber);
@@ -151,7 +151,7 @@ var currentSongPlayingNumber = null;
 var currentAlbum=null;
 var currentAlbumSong=null;
 var $nextButton = $('.main-controls .next');
-var $prevButton = $('.main-controls .prev');
+var $prevButton = $('.main-controls .previous');
 
 $(document).ready(function()
 {
