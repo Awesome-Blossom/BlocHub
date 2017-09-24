@@ -147,30 +147,30 @@ var prevSong = function() {
 };
 
 var togglePlayFromPlayerBar = function() {
-  // var songNumberCell = $('.song-item-number[data-song-number="' + currentSongPlayingNumber+ '"]');
-  // console.log(songNumberCell);
-  // var currentSongIndex = trackIndex(currentAlbum, currentAlbumSong);
-  // currentSongIndex++;
-  // if (currentSongIndex >= currentAlbum.songs.length) {
-  //   currentSongIndex = 0;
-  // }
-    if(currentSongPlayingNumber == null){
-    currentSongPlayingNumber = 1;
-    currentSoundFile = 1;
-    currentSoundFile.play();
-  }
+
+  var firstSongNumberCell = $('.song-item-number').attr('data-song-number');
+  var firstSongNumberCellElement = getSongNumberCell(firstSongNumberCell);
 
   var songNumberCellElement = getSongNumberCell(currentSongPlayingNumber);
   console.log(songNumberCellElement);
 
-  if (currentSoundFile.isPaused()) {
-    songNumberCellElement.html(pauseButtonTemplate);
+  if (currentSoundFile) {
+    if (currentSoundFile.isPaused()) {
+      songNumberCellElement.html(pauseButtonTemplate);
+      $(this).html(playerBarPauseButton);
+      currentSoundFile.play();
+    } else {
+      songNumberCellElement.html(playButtonTemplate);
+      $(this).html(playerBarPlayButton);
+      currentSoundFile.pause();
+    }
+  }
+  //if page is loaded and no songs are chosen, first song will play 
+  else {
+    setSong(firstSongNumberCell);
+    firstSongNumberCellElement.html(pauseButtonTemplate);
     $(this).html(playerBarPauseButton);
     currentSoundFile.play();
-  } else {
-    songNumberCellElement.html(playButtonTemplate);
-    $(this).html(playerBarPlayButton);
-    currentSoundFile.pause();
   }
 };
 //set Attribute number & album song number for currently playing song.
