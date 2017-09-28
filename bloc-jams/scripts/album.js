@@ -83,6 +83,33 @@ var setCurrentAlbum = function(album) {
   }
 };
 
+//updating seekBar fill & thumb values
+var updateSeekPercentage = function($seekBar, seekBarFillRatio){
+    var offsetXPercent = seekBarFillRatio * 100;
+
+    offsetXPercent = Math.max(0, offsetXPercent);
+    offsetXPercent = Math.min(100, offsetXPercent);
+
+    var percentageString = offsetXPercent + '%';
+    $seekBar.find('.fill').width(percentageString);
+    $seekBar.find('.thumb').css({left: percentageString});
+}
+
+//method for determining seekBarFillRatio for updateSeekPercentage function
+var setupSeekBars = function(){
+    var $seekBars = $('.player-bar .seek-bar');
+
+    $seekBars.click(function(event){
+        var offsetX = event.pageX - $(this).offset().left;
+        console.log(event.pageX+'pageX');
+        console.log($(this).offset().left + 'left');
+        var barWidth = $(this).width();
+        console.log(barWidth);
+        var seekBarFillRatio = offsetX / barWidth;
+
+        updateSeekPercentage($(this), seekBarFillRatio);
+    });
+};
 //switch album cover & song info when clicked on album cover art\
 var switchAlbumCoverArt = function() {
   counter++;
@@ -220,4 +247,5 @@ $(document).ready(function() {
   $nextButton.click(nextSong);
   $prevButton.click(prevSong);
   $togglePlayFromPlayerBarButton.click(togglePlayFromPlayerBar);
+  setupSeekBars();
 });
